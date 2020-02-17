@@ -51,6 +51,7 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Login</a>
           </li>
+         
         </ul>
       </div>
     </div>
@@ -58,16 +59,10 @@
 
   <!-- Page Content -->
   <div class="container">
+    
 
-    <div class="row">
 
-      <div class="col-lg-3">
-
-        <h1 class="my-4">Product line </h1>
-
-        {% for o in cntx %}
-             <button  type="button" class="btn btn-primary">{{o}}</button> </br>
-        {% endfor %}
+      <div id= 'product_catalog'>
 
       </div>
 
@@ -105,29 +100,46 @@
       </div>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
-   
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
-    </div>
-
-  </footer>
-  
   <script>
-   function myFunction(event){
 
-     console.log(event)
-     alert('clicked')
-   }
-   
-   function handle_event(){
+   var baseURL = "{% static '' %}"
+   function fetch_data(){
 
-    alert('clicked')
+    axios.get('http://127.0.0.1:8000/classic_app/getProducts').then(function (response) {
+      for (product in response.data.products){
+          product_object = response.data.products[product]
+          console.log(product_object.product_img[0])
+          product_catalog =  document.getElementById('product_catalog')
+          product_catalog.innerHTML += ` 
+    <div class="row">
+      <div class="col-sm">
+          <h1>${product_object.productname}</h1>
+          <p>Price:$ ${product_object.msrp}7</p>
+          <p>${product_object.productDescription}</p>
+          <p>stock:${product_object.quantityInStock}</p>
+      </div>
+      <div class="col-sm">
+          <img class="d-block img-fluid" src="/static/${product_object.product_img[0]}" alt="${product_object.product_img[0]}">
+      </div>
+  </div>
+  <hr>`
+      }
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
+  });
+    }
 
-   }
-   </script>
+    fetch_data()
+  </script>
+  
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

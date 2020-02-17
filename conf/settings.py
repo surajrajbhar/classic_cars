@@ -40,12 +40,14 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'debug_toolbar',
-    'classic_app'
+    'classic_app',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -132,3 +134,6 @@ INTERNAL_IPS = [
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+CORS_ORIGIN_ALLOW_ALL=True

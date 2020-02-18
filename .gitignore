@@ -1,3 +1,6 @@
 *.pyc
 
 /home/suraj/django_apps/classicmodels/.ipynb_checkpoints
+
+
+*.ipynb

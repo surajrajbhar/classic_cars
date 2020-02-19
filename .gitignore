@@ -4,3 +4,9 @@
 
 
 *.ipynb
+
+
+secret.py
+classic_app/secrets.py
+experiment.ipynb
+conf/secrets.py

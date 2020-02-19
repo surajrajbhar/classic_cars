@@ -27,9 +27,9 @@ def getProducts(request):
             prod_obj['msrp'] =  product.msrp 
             prod_obj['product_img'] = list(map(lambda x :f'downloads/{product.productname}/{x}',prod_img))
             prod_list.append(prod_obj) 
-            print(prod_obj)
+            #print(prod_obj)
         except Exception as e:
-            print('exception happened')
+            print(f'exception:{e}')
             print(f'classic_app/static/downloads/{product.productname}') 
     return JsonResponse({"products":prod_list})
 

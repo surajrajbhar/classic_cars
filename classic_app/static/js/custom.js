@@ -1,7 +1,6 @@
 
-function handle_checkbox_event(e){
-   console.log('event')
-   var checkedBoxes=document.querySelectorAll('input[name=ck]:checked');
+function handle_checkbox_event(e){   
+  var checkedBoxes=document.querySelectorAll('input[name=ck]:checked');
     checked_item =[]
     for (i=0; i<checkedBoxes.length;i++){
        checked_item.push(checkedBoxes[i].value)

@@ -11,3 +11,5 @@ classic_app/secrets.py
 experiment.ipynb
 conf/secrets.py
 experiment.ipynb
+.ipynb_checkpoints/experiment-checkpoint.ipynb
+.vscode/settings.json

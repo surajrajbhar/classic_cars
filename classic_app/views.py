@@ -17,10 +17,12 @@ def index(request):
 
 def getProducts(request):
     prod_list = []
+    unique_prod = [prod [0] for prod in Products.objects.all().values_list('productline').distinct()]
     for product in Products.objects.all():
         try: 
             prod_obj = {} 
             prod_img  = os.listdir(f'classic_app/static/downloads/{product.productname}') 
+            prod_obj['productline'] =  product.productline.productline
             prod_obj['productname'] = product.productname 
             prod_obj['productDescription'] = product.productdescription 
             prod_obj['quantityInStock']  = product.quantityinstock 
@@ -30,6 +32,7 @@ def getProducts(request):
             #print(prod_obj)
         except Exception as e:
             print(f'exception:{e}')
-            print(f'classic_app/static/downloads/{product.productname}') 
-    return JsonResponse({"products":prod_list})
+            print(f'classic_app/static/downloads/{product.productname}')
+
+    return JsonResponse({"products":prod_list,'product_line':unique_prod})
 

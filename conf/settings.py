@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','192.168.43.33']
 
@@ -135,11 +135,11 @@ INTERNAL_IPS = [
 
 STATIC_URL = '/static/'
 
-SECURE_SSL_REDIRECT =  True
+# SECURE_SSL_REDIRECT =  True
 
-SESSION_COOKIE_SECURE =  True
+# SESSION_COOKIE_SECURE =  True
 
-CSRF_COOKIE_SECURE =  True
+# CSRF_COOKIE_SECURE =  True
 
 # #SECURE_SSL_REDIRECT =  True
 

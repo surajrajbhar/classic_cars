@@ -20,15 +20,17 @@ function updateProductLines(){
   axios.get('http://127.0.0.1:8000/classic_app/getProducts').then(function (response) {
   product_line_div =  document.getElementById('check_boxes');
   //console.log(response.data.product_line);
-  for (product_line in response.data.product_line){
+  response.data.product_line.map(product_line_obj=(product_line)=>{
+
     product_line_div.innerHTML += `
     <div class="custom-control custom-checkbox custom-control-inline">
-        <input type="checkbox" name = "ck" class="custom-control-input" value="${response.data.product_line[product_line]}"  id="defaultInline${product_line}">
-        <label class="custom-control-label" for="defaultInline${product_line}">${response.data.product_line[product_line]}</label>
+        <input type="checkbox" name = "ck" class="custom-control-input" value="${product_line}"  id="defaultInline${product_line}">
+        <label class="custom-control-label" for="defaultInline${product_line}">${product_line}</label>
       </div>
     `
-  
-}
+    console.log(product_line)
+
+  })
 })
 }
 
@@ -132,4 +134,4 @@ function fetch_data(){
   .then(function () {
     // always executed
   });
-    }
+  }

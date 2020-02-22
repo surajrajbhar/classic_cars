@@ -21,14 +21,25 @@ class OrdersViewset(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
-    # def list(self, request, *args, **kwargs):
-    #     if request.user=='AnonymousUser':
-    #         return Response(f'response:{request.user}')
-    #     print(f'request : {request.user}')
-    #     customer_number = Customers.objects.filter(contactfirstname__contains=str(request.user).split('_')[0]).values_list('customernumber')[0]
-    #     order_details = Orders.objects.filter(customernumber=customer_number)
-    #     serialized_orders =  OrdersSerializer(order_details,many=True).data        
-    #     return Response(serialized_orders)
+    def list(self, request, *args, **kwargs):
+        if request.user=='AnonymousUser':
+            return Response(f'response:{request.user}')
+        print(f'request : {request.user}')
+        customer_list = list(Customers.objects.filter(contactfirstname__contains=str(request.user).split('_')[0]).values('customernumber'))
+        
+        if len(customer_list)==0:
+            return Response(f'No Customer named : {request.user} exists')
+        
+        
+        customer_number =  customer_list[0].get('customernumber') 
+        
+        order_details = Orders.objects.filter(customernumber=customer_number)
+        if len(order_details)==0:
+            return Response(f'no order exists for customer {request.user}')
+
+
+        serialized_orders =  OrdersSerializer(order_details,many=True).data        
+        return Response(serialized_orders)
 
     
     def update(self, request, *args, **kwargs):

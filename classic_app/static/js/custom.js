@@ -41,47 +41,43 @@ function call_Api(checked_item){
   product_catalog =  document.getElementById('product_catalog')
   
   product_catalog.innerHTML = " "
- for (product in response.data.products){
-    product_object = response.data.products[product]
 
-    //console.log(product_object.productline)
-    if (checked_item.indexOf(product_object.productline)>-1){
-      
-        product_catalog.innerHTML += 
-
-`<div class="col-lg-4 col-md-6 mb-4">
-
-<!--Card-->
-<div class="card">
-
-  <!--Card image-->
-  <div class="view overlay">
-      <img src="/static/${product_object.product_img[0]}"
-          class="card-img-top" alt="">
-      <a href="#">
-          <div class="mask rgba-white-slight"></div>
-      </a>
-  </div>
-
-  <!--Card content-->
-  <div class="card-body">
-      <!--Title-->
-      <h4 class="card-title ">${product_object.productname}</h4>
-      
-      <!--Text-->
-      <i class="fas fa-dollar-sign">${product_object.msrp*1000}</i>
-      <a href="#!"class="btn btn-indigo btn-sm float-right">Buy</a>
-  </div>
-
-</div>
-<!--/.Card-->
-
-</div>`
-
-
-    }
+  response.data.products.map((product)=>{
+  console.log(product)
+  if ((checked_item.indexOf(product.productline)>-1)){
+    product_catalog.innerHTML += 
+    `<div class="col-lg-4 col-md-6 mb-4">
+    <!--Card-->
+    <div class="card">
+  
+      <!--Card image-->
+      <div class="view overlay">
+          <img src="/static/${product.product_img[0]}"
+              class="card-img-top" alt="">
+          <a href="#">
+              <div class="mask rgba-white-slight"></div>
+          </a>
+      </div>
     
-}
+      <!--Card content-->
+      <div class="card-body">
+          <!--Title-->
+          <h4 class="card-title ">${product.productname}</h4>
+          
+          <!--Text-->
+          <i class="fas fa-dollar-sign">${product.msrp*1000}</i>
+          <a href="#!"class="btn btn-indigo btn-sm float-right">Buy</a>
+      </div>
+    
+    </div>
+    <!--/.Card-->
+    
+    </div>`
+
+
+  }
+  })
+
  }).catch(function (error) {console.log(error);})
  //console.log(data)
 }
@@ -92,7 +88,6 @@ function fetch_data(){
     
       for (product in response.data.products){
           product_object = response.data.products[product]
-          //console.log(product_object.product_img[0])
           product_catalog =  document.getElementById('product_catalog')
           product_catalog.innerHTML += 
     

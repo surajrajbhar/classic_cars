@@ -21,7 +21,6 @@ function updateProductLines(){
   product_line_div =  document.getElementById('check_boxes');
   //console.log(response.data.product_line);
   response.data.product_line.map(product_line_obj=(product_line)=>{
-
     product_line_div.innerHTML += `
     <div class="custom-control custom-checkbox custom-control-inline">
         <input type="checkbox" name = "ck" class="custom-control-input" value="${product_line}"  id="defaultInline${product_line}">

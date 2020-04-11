@@ -16,31 +16,11 @@ class OrdersViewset(viewsets.ModelViewSet):
     serializer_class =  OrdersSerializer
     #permission_classes = [IsAuthenticated]
 
-
-    
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
     def list(self, request, *args, **kwargs):
-        if request.user=='AnonymousUser':
-            return Response(f'response:{request.user}')
-        print(f'request : {request.user}')
-        customer_list = list(Customers.objects.filter(contactfirstname__contains=str(request.user).split('_')[0]).values('customernumber'))
-        
-        if len(customer_list)==0:
-            return Response(f'No Customer named : {request.user} exists')
-        
-        
-        customer_number =  customer_list[0].get('customernumber') 
-        
-        order_details = Orders.objects.filter(customernumber=customer_number)
-        if len(order_details)==0:
-            return Response(f'no order exists for customer {request.user}')
-
-
-        serialized_orders =  OrdersSerializer(order_details,many=True).data        
-        return Response(serialized_orders)
-
+        return super().list(request, *args, **kwargs)
     
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
@@ -58,6 +38,13 @@ class UserViewset(viewsets.ModelViewSet):
 class PaymentViewset(viewsets.ModelViewSet):
     queryset = Payments.objects.all()
     serializer_class = PaymentsSerializer
+
+    def list(self, request, *args, **kwargs):
+        ct = Customers.objects.get(customernumber=request.user.get_username())
+        payment_details = Payments.objects.filter(customernumber=ct.customernumber)
+        serialized_payments =  PaymentsSerializer(payment_details,many=True).data        
+        return Response(serialized_payments)
+
 
 class OrderDetailsViewset(viewsets.ModelViewSet):
     queryset =  Orderdetails.objects.all()

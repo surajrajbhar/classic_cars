@@ -114,6 +114,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
+LOGIN_REDIRECT_URL='/api'
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -135,20 +137,8 @@ INTERNAL_IPS = [
 
 STATIC_URL = '/static/'
 
-# SECURE_SSL_REDIRECT =  True
-
-# SESSION_COOKIE_SECURE =  True
-
-# CSRF_COOKIE_SECURE =  True
-
-# #SECURE_SSL_REDIRECT =  True
-
-# #SESSION_COOKIE_SECURE =  True
-
-# CSRF_COOKIE_SECURE =  True
 
 CORS_ORIGIN_ALLOW_ALL=True
-
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
